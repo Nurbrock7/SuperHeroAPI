@@ -7,18 +7,40 @@ namespace SuperHeroAPI
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        private static List<SuperHero> heros = new List<SuperHero>
         {
-            var heros = new List<SuperHero>
-            {
-                new SuperHero { Id = 1,
-                    FirstName = "Thor",
-                    LastName = "Ragnarok",
-                    Name =  "Chris",
-                    Place = "Azgard"}
-            };
+            new SuperHero { Id = 1,
+            FirstName = "Thor",
+            LastName = "Ragnarok",
+            Name =  "Chris",
+            Place = "Azgard"
 
+            },
+
+             new SuperHero { Id = 2,
+            FirstName = "Tony",
+            LastName = "Stark",
+            Name =  "Ironman",
+            Place = "USA"
+
+            }
+        };
+
+    [HttpGet]
+        public async Task<ActionResult<SuperHero>> Get()
+        {
+            return Ok(heros);
+        }
+
+        public async Task<ActionResult<SuperHero>> Get(int id)
+        {
+            var herp = heros.Find(h => h.Id == id);
+            return BadRequest("Hero Not Found");
+        }
+        [HttpPost]
+        public async Task<ActionResult<SuperHero>> AddHero(SuperHero hero)
+        {
+            heros.Add(hero);
             return Ok(heros);
         }
     }
