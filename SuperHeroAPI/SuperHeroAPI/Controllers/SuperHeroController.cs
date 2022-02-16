@@ -19,7 +19,7 @@ namespace SuperHeroAPI
                     Place = "Azgard"}
             };
 
-            return NotFound(heros);
+            return Ok(heros);
         }
     }
 }
